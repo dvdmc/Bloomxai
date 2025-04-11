@@ -1,0 +1,36 @@
+# We base our styles on the standard Google C++ guide with some tweaks
+Language:      Cpp
+BasedOnStyle:  Google
+
+UseTab: Never
+
+TabWidth:    2
+IndentWidth: 2
+
+ColumnLimit: 100
+
+# After some discussion, we have settled on attached braces. There are mixed
+# feelings on this, but the general justification is that it keeps us in tune
+# with code from other languages we use to the greatest possible extent.
+BreakBeforeBraces: Attach
+
+
+PackConstructorInitializers: Never
+
+# Arguments to functions that don't fit on one line will by default be aligned.
+# This results in a bunch of alignment characters without improving readability
+# very much, and for long argument lists wastes a lot of space. Forcing these
+# arguments onto a new line instead benefits readability.
+#
+# In an ideal world, we'd use the newer BlockIndent value for this parameter,
+# which also forces the closing brace on a new line. However, this is only
+# supported in clang-format 14+. Revisit this later.
+AlignAfterOpenBracket: AlwaysBreak
+
+# We want to avoid bundling short functions onto a single line. Our line length
+# (longer than others) means that if we allowed this to happen, we could end up
+# with some difficult-to-read code. This forces all short functions to be laid
+# out over multiple lines.
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
