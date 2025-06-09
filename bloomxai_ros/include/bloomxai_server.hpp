@@ -20,6 +20,8 @@
 #include "pcl_conversions/pcl_conversions.h"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "tf2_eigen/tf2_eigen.hpp"
@@ -56,6 +58,7 @@ namespace bloomxai_server {
         const std::vector<rclcpp::Parameter>& parameters);
   
     rclcpp::Publisher<PointCloud2>::SharedPtr point_cloud_pub_;
+    rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_pub_;
     message_filters::Subscriber<PointCloud2> point_cloud_sub_;
     std::shared_ptr<tf2_ros::MessageFilter<PointCloud2>> tf_point_cloud_sub_;
     // rclcpp::Service<BBoxSrv>::SharedPtr clear_bbox_srv_;

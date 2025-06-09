@@ -41,7 +41,7 @@ class SemanticMap {
   /// The real number is represented as a fixed precision
   /// integer (6 decimals after the comma)
   [[nodiscard]] static constexpr int32_t logods(float prob) {
-    return int32_t(kFixedPrecision * std::log(prob / (1.0 - prob + kEps)));
+    return int32_t(kFixedPrecision * std::log((prob + kEps) / (1.0 - prob + kEps)));
   }
 
   /// Expect the fixed comma value returned by logods()
@@ -51,7 +51,7 @@ class SemanticMap {
   }
 
   // TODO(dvdmc): Check if this causes too much artifacts.
-  [[nodiscard]] VSemanticLogOds vlogods(VSemanticProb probs) {
+  [[nodiscard]] VSemanticLogOds vlogods(const VSemanticProb &probs) {
     VSemanticLogOds vec(_sem_dim);
     for (int i = 0; i < _sem_dim; ++i) {
       vec[i] = logods(probs[i]);
@@ -86,8 +86,16 @@ class SemanticMap {
       sem_prob_log.setConstant(value);
     }
 
-    [[nodiscard]] static constexpr int argmax(const VSemanticLogOds& vec) {
-      return vec.maxCoeff();
+    [[nodiscard]] int argmax(const VSemanticLogOds& vec) {
+        int min = std::numeric_limits<int>::lowest();
+        int maxIndex = 0;
+        for (int i = 0; i < vec.size(); i++) {
+            if (vec[i] > min) {
+                min = vec[i];
+                maxIndex = i;
+            }
+        }
+        return static_cast<int>(maxIndex);
     }
     
   };
@@ -192,7 +200,7 @@ class SemanticMap {
     coords.clear();
     labels.clear();
     getOccupiedVoxelsAndClass(coords, labels);
-    for (int i = 0; i < coords.size(); i++) {
+    for (size_t i = 0; i < coords.size(); i++) {
       const auto coord = coords[i];
       const auto p = _grid.coordToPos(coord);
       points.emplace_back(p.x, p.y, p.z);

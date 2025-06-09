@@ -33,7 +33,7 @@ void SemanticMap::addHitPoint(const Vector3D& point,
 
   SemanticMap::VSemanticLogOds sem_log_odds =
       SemanticMap::vlogods(SemanticMap::regularizeSemantic(semantics));
-
+  
   // TODO(dvdmc): Check if only updating once causes artifacts
   if (cell->update_id != _update_count) {
     cell->occ_prob_log = std::max(cell->occ_prob_log + _options.prob_hit_log,
@@ -43,7 +43,7 @@ void SemanticMap::addHitPoint(const Vector3D& point,
     // TODO(dvdmc): Check if clamping causes artifacts
     cell->sem_prob_log.cwiseMax(_options.clamp_min_sem_log)
         .cwiseMin(_options.clamp_max_sem_log);
-
+    
     cell->update_id = _update_count;
     _hit_coords.push_back(coord);
   }
@@ -146,7 +146,7 @@ void SemanticMap::getOccupiedVoxelsAndClass(std::vector<CoordT>& coords, std::ve
   auto visitor = [&](SemCellT& cell, const CoordT& coord) {
     if (cell.occ_prob_log > _options.occupancy_threshold_log) {
       coords.push_back(coord);
-      classes.push_back(SemCellT::argmax(cell.sem_prob_log));
+      classes.push_back(cell.argmax(cell.sem_prob_log));
     }
   };
   _grid.forEachCell(visitor);

@@ -4,7 +4,7 @@
   <name>bloomxai_ros</name>
   <version>0.1.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="davidmorillacabello@gmail.com">enrique</maintainer>
+  <maintainer email="davidmorillacabello@gmail.com">davidmorillacabello</maintainer>
   <license>TODO: License declaration</license>
 
   <!-- <buildtool_depend>ament_cmake</buildtool_depend> -->
