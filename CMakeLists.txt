@@ -55,6 +55,11 @@ if ( ament_cmake_FOUND )
     find_package(ament_cmake_auto REQUIRED)
     ament_auto_find_build_dependencies()
 
+    rosidl_generate_interfaces(${PROJECT_NAME}
+      "bloomxai_ros/srv/LoadMap.srv"
+      "bloomxai_ros/srv/SaveMap.srv"
+    )
+
     include_directories(bloomxai_ros/include 3rdparty)
 
     ament_auto_add_library(bloomxai_server SHARED
@@ -70,6 +75,9 @@ if ( ament_cmake_FOUND )
       PLUGIN "bloomxai_server::BloomxaiServer"
       EXECUTABLE bloomxai_server_node
     )
+
+    rosidl_target_interfaces(bloomxai_server
+      ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
     ament_auto_package(
       INSTALL_TO_SHARE

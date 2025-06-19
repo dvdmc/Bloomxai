@@ -26,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud2
 Visualization Manager:
   Class: ""
   Displays:
@@ -83,6 +83,16 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        base_footprint:
+          Value: true
+        base_gimbal_link:
+          Value: true
+        base_gimbal_plate_link:
+          Value: true
+        base_laser_link:
+          Value: true
+        base_laser_plate_link:
+          Value: true
         base_link:
           Value: true
         base_link_frd:
@@ -93,6 +103,8 @@ Visualization Manager:
           Value: false
         camera_aligned_depth_to_infra1_frame:
           Value: false
+        camera_bottom_screw_frame:
+          Value: true
         camera_color_frame:
           Value: false
         camera_color_optical_frame:
@@ -115,7 +127,21 @@ Visualization Manager:
           Value: false
         camera_link:
           Value: true
+        camera_mount_gimbal_link:
+          Value: true
+        caster_back_link:
+          Value: true
+        caster_front_link:
+          Value: true
+        cliff_sensor_front_link:
+          Value: true
+        cliff_sensor_left_link:
+          Value: true
+        cliff_sensor_right_link:
+          Value: true
         earth:
+          Value: true
+        gyro_link:
           Value: true
         map:
           Value: true
@@ -126,6 +152,48 @@ Visualization Manager:
         odom_ned:
           Value: true
         optitrack_marker:
+          Value: true
+        plate_bottom_link:
+          Value: true
+        plate_middle_link:
+          Value: true
+        plate_top_link:
+          Value: true
+        pole_bottom_0_link:
+          Value: true
+        pole_bottom_1_link:
+          Value: true
+        pole_bottom_2_link:
+          Value: true
+        pole_bottom_3_link:
+          Value: true
+        pole_bottom_4_link:
+          Value: true
+        pole_bottom_5_link:
+          Value: true
+        pole_kinect_0_link:
+          Value: true
+        pole_kinect_1_link:
+          Value: true
+        pole_middle_0_link:
+          Value: true
+        pole_middle_1_link:
+          Value: true
+        pole_middle_2_link:
+          Value: true
+        pole_middle_3_link:
+          Value: true
+        pole_top_0_link:
+          Value: true
+        pole_top_1_link:
+          Value: true
+        pole_top_2_link:
+          Value: true
+        pole_top_3_link:
+          Value: true
+        wheel_left_link:
+          Value: true
+        wheel_right_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -162,7 +230,64 @@ Visualization Manager:
                   camera_infra2_frame:
                     camera_infra2_optical_frame:
                       {}
+                caster_back_link:
+                  {}
+                caster_front_link:
+                  {}
+                cliff_sensor_front_link:
+                  {}
+                cliff_sensor_left_link:
+                  {}
+                cliff_sensor_right_link:
+                  {}
+                gyro_link:
+                  {}
                 optitrack_marker:
+                  {}
+                plate_bottom_link:
+                  {}
+                plate_middle_link:
+                  {}
+                plate_top_link:
+                  base_gimbal_plate_link:
+                    base_gimbal_link:
+                      camera_mount_gimbal_link:
+                        camera_bottom_screw_frame:
+                          {}
+                  base_laser_plate_link:
+                    base_laser_link:
+                      {}
+                pole_bottom_0_link:
+                  {}
+                pole_bottom_1_link:
+                  {}
+                pole_bottom_2_link:
+                  {}
+                pole_bottom_3_link:
+                  {}
+                pole_bottom_4_link:
+                  {}
+                pole_bottom_5_link:
+                  {}
+                pole_kinect_0_link:
+                  {}
+                pole_kinect_1_link:
+                  {}
+                pole_middle_0_link:
+                  {}
+                pole_middle_1_link:
+                  {}
+                pole_middle_2_link:
+                  {}
+                pole_middle_3_link:
+                  {}
+                pole_top_0_link:
+                  {}
+                pole_top_1_link:
+                  {}
+                pole_top_2_link:
+                  {}
+                pole_top_3_link:
                   {}
               odom_ned:
                 {}
@@ -272,7 +397,7 @@ Visualization Manager:
       Enabled: true
       Name: BloomxaiMarker
       Namespaces:
-        {}
+        bloomxai_voxels: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -327,25 +452,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 6.917868137359619
+      Distance: 12.984426498413086
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.0429567098617554
-        Y: -0.8935189247131348
-        Z: 2.285402536392212
+        X: 1.611451268196106
+        Y: -3.050640106201172
+        Z: 0.12253499031066895
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8097970485687256
+      Pitch: 0.9297967553138733
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.968573808670044
+      Yaw: 2.369891405105591
     Saved: ~
 Window Geometry:
   Depth:

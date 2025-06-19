@@ -13,9 +13,6 @@
 #include <string>
 #include <vector>
 
-#include "bonxai/bonxai.hpp"
-#include "bloomxai_map/pcl_utils.hpp"
-#include "bloomxai_map/semantic_map.hpp"
 #include "message_filters/subscriber.h"
 #include "pcl_conversions/pcl_conversions.h"
 #include "rclcpp/rclcpp.hpp"
@@ -29,6 +26,12 @@
 #include "tf2_ros/create_timer_ros.h"
 #include "tf2_ros/message_filter.h"
 #include "tf2_ros/transform_listener.h"
+
+#include "bonxai/bonxai.hpp"
+#include "bloomxai_map/pcl_utils.hpp"
+#include "bloomxai_map/semantic_map.hpp"
+#include "bloomxai_ros/srv/save_map.hpp"
+#include "bloomxai_ros/srv/load_map.hpp"
 
 namespace bloomxai_server {
 
@@ -66,6 +69,19 @@ namespace bloomxai_server {
     std::shared_ptr<tf2_ros::Buffer> tf2_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf2_listener_;
   
+    rclcpp::Service<bloomxai_ros::srv::SaveMap>::SharedPtr save_srv_;
+    rclcpp::Service<bloomxai_ros::srv::LoadMap>::SharedPtr load_srv_;
+
+    bool saveMapCallback(
+        const std::shared_ptr<bloomxai_ros::srv::SaveMap::Request> request,
+        const std::shared_ptr<bloomxai_ros::srv::SaveMap::Response> response
+    );
+
+    bool loadMapCallback(
+        const std::shared_ptr<bloomxai_ros::srv::LoadMap::Request> request,
+        const std::shared_ptr<bloomxai_ros::srv::LoadMap::Response> response
+    );
+
     std::unique_ptr<BloomxaiT> bloomxai_;
     std::vector<Bonxai::CoordT> key_ray_;
   

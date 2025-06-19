@@ -1,7 +1,7 @@
-#include "bloomxai_server.hpp"
+#include "bloomxai_ros/bloomxai_server.hpp"
 
-#include "semantic_utils.hpp"
 #include "sensor_msgs/point_cloud2_iterator.hpp"
+#include "bloomxai_ros/semantic_utils.hpp"
 
 namespace {
 template <typename T>
@@ -163,12 +163,55 @@ BloomxaiServer::BloomxaiServer(const rclcpp::NodeOptions& node_options)
 
   tf_point_cloud_sub_->registerCallback(&BloomxaiServer::insertCloudCallback, this);
 
+  save_srv_ = create_service<bloomxai_ros::srv::SaveMap>(
+  "~/save_map",
+  std::bind(&BloomxaiServer::saveMapCallback, this, std::placeholders::_1, std::placeholders::_2));
+
+  load_srv_ = create_service<bloomxai_ros::srv::LoadMap>(
+  "~/load_map",
+  std::bind(&BloomxaiServer::loadMapCallback, this, std::placeholders::_1, std::placeholders::_2));
+
   reset_srv_ =
       create_service<ResetSrv>("~/reset", std::bind(&BloomxaiServer::resetSrv, this, _1, _2));
 
   // set parameter callback
   set_param_res_ =
       this->add_on_set_parameters_callback(std::bind(&BloomxaiServer::onParameter, this, _1));
+}
+
+bool BloomxaiServer::saveMapCallback(
+    const std::shared_ptr<bloomxai_ros::srv::SaveMap::Request> request,
+    const std::shared_ptr<bloomxai_ros::srv::SaveMap::Response> response) {
+  try {
+    bloomxai_->serializeToFile(request->filename);
+    RCLCPP_INFO(get_logger(), "Map saved to %s", request->filename.c_str());
+    response->success = true;
+    response->message = "Map saved successfully.";
+    return true;
+  } catch (const std::exception& e) {
+    RCLCPP_ERROR(get_logger(), "Failed to save map: %s", e.what());
+    response->success = false;
+    response->message = e.what();
+    return false;
+  }
+}
+
+bool BloomxaiServer::loadMapCallback(
+    const std::shared_ptr<bloomxai_ros::srv::LoadMap::Request> request,
+    const std::shared_ptr<bloomxai_ros::srv::LoadMap::Response> response) {
+  try {
+    bloomxai_->deserializeFromFile(request->filename);
+    RCLCPP_INFO(get_logger(), "Map loaded from %s", request->filename.c_str());
+    response->success = true;
+    response->message = "Map loaded successfully.";
+    publishAll(now());
+    return true;
+  } catch (const std::exception& e) {
+    RCLCPP_ERROR(get_logger(), "Failed to load map: %s", e.what());
+    response->success = false;
+    response->message = e.what();
+    return false;
+  }
 }
 
 void BloomxaiServer::insertCloudCallback(const PointCloud2::ConstSharedPtr cloud) {
@@ -247,7 +290,7 @@ void BloomxaiServer::insertCloudCallback(const PointCloud2::ConstSharedPtr cloud
   // Getting the Translation from the sensor to the Global Reference Frame
   const auto& t = sensor_to_world_transform_stamped.transform.translation;
 
-  RCLCPP_INFO(get_logger(), "Inserting %d points", pc.points.size());
+  RCLCPP_INFO(get_logger(), "Inserting %ld points", pc.points.size());
 
   const pcl::PointXYZ sensor_to_world_vec3(t.x, t.y, t.z);
   if (max_range_ >= 0) {
