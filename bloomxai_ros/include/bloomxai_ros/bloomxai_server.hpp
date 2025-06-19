@@ -1,5 +1,5 @@
-#ifndef BLOOMXAI_SERVER__BLOOMXAI_SERVER_HPP_
-#define BLOOMXAI_SERVER__BLOOMXAI_SERVER_HPP_
+#ifndef BLOOMXAI_SERVER__BLOOMXAI_SERVER_HPP
+#define BLOOMXAI_SERVER__BLOOMXAI_SERVER_HPP
 
 #include <pcl/common/transforms.h>
 #include <pcl/filters/extract_indices.h>
