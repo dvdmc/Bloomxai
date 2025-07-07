@@ -34,7 +34,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -47,7 +47,7 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Class: rviz_default_plugins/Image
       Enabled: true
       Max Value: 1
@@ -95,8 +95,6 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        base_link_frd:
-          Value: true
         camera_accel_frame:
           Value: false
         camera_accel_optical_frame:
@@ -139,20 +137,12 @@ Visualization Manager:
           Value: true
         cliff_sensor_right_link:
           Value: true
-        earth:
-          Value: true
         gyro_link:
           Value: true
         map:
           Value: true
-        map_ned:
-          Value: true
         odom:
           Value: false
-        odom_ned:
-          Value: true
-        optitrack_marker:
-          Value: true
         plate_bottom_link:
           Value: true
         plate_middle_link:
@@ -201,35 +191,10 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        earth:
-          map:
-            map_ned:
-              {}
-            odom:
+        map:
+          odom:
+            base_footprint:
               base_link:
-                base_link_frd:
-                  {}
-                camera_link:
-                  camera_accel_frame:
-                    camera_accel_optical_frame:
-                      {}
-                  camera_aligned_depth_to_infra1_frame:
-                    camera_infra1_optical_frame:
-                      {}
-                  camera_color_frame:
-                    camera_color_optical_frame:
-                      {}
-                  camera_depth_frame:
-                    camera_depth_optical_frame:
-                      {}
-                  camera_gyro_frame:
-                    camera_gyro_optical_frame:
-                      {}
-                  camera_infra1_frame:
-                    {}
-                  camera_infra2_frame:
-                    camera_infra2_optical_frame:
-                      {}
                 caster_back_link:
                   {}
                 caster_front_link:
@@ -242,8 +207,6 @@ Visualization Manager:
                   {}
                 gyro_link:
                   {}
-                optitrack_marker:
-                  {}
                 plate_bottom_link:
                   {}
                 plate_middle_link:
@@ -253,7 +216,27 @@ Visualization Manager:
                     base_gimbal_link:
                       camera_mount_gimbal_link:
                         camera_bottom_screw_frame:
-                          {}
+                          camera_link:
+                            camera_accel_frame:
+                              camera_accel_optical_frame:
+                                {}
+                            camera_aligned_depth_to_infra1_frame:
+                              camera_infra1_optical_frame:
+                                {}
+                            camera_color_frame:
+                              camera_color_optical_frame:
+                                {}
+                            camera_depth_frame:
+                              camera_depth_optical_frame:
+                                {}
+                            camera_gyro_frame:
+                              camera_gyro_optical_frame:
+                                {}
+                            camera_infra1_frame:
+                              {}
+                            camera_infra2_frame:
+                              camera_infra2_optical_frame:
+                                {}
                   base_laser_plate_link:
                     base_laser_link:
                       {}
@@ -289,8 +272,10 @@ Visualization Manager:
                   {}
                 pole_top_3_link:
                   {}
-              odom_ned:
-                {}
+                wheel_left_link:
+                  {}
+                wheel_right_link:
+                  {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -452,25 +437,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 12.984426498413086
+      Distance: 17.213912963867188
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.611451268196106
-        Y: -3.050640106201172
-        Z: 0.12253499031066895
+        X: 1.9572193622589111
+        Y: -2.2761104106903076
+        Z: 1.2740461826324463
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9297967553138733
+      Pitch: 0.5097970366477966
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.369891405105591
+      Yaw: 4.401741027832031
     Saved: ~
 Window Geometry:
   Depth:
