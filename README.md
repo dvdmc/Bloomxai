@@ -2,7 +2,7 @@
 
 ![Bloomxai](doc/bloomxai.png)
 
-Bloomxai is a version of the `bonxai_map` that implements dynamic size vectors in the voxel structure to allow `semantic mapping` on top of [Bonxai](https://github.com/facontidavide/Bonxai). Rought and quick benchmarking indicates that, while slower than Bonxai's probabilistic map, Bloomxai is still faster than Ocotmap's implementation for probabilistic occupancy mapping. The integration time of point clouds takes ~2ms. Thus, you will be mostly limited by the inference time of your semantic network.
+Bloomxai is a version of the `bonxai_map` that implements dynamic size vectors in the voxel structure to allow `semantic mapping` on top of [Bonxai](https://github.com/facontidavide/Bonxai). Quick benchmarking indicates that, while slower than Bonxai's probabilistic map, Bloomxai is still faster than Ocotmap's implementation for probabilistic occupancy mapping. The integration time of point clouds takes ~2ms. Thus, you will be mostly limited by the inference time of your semantic network.
 
 As input, it expects a semantic point cloud in the form of the [sensors_tools](https://github.com/dvdmc/sensors_tools) package in the `jazzy` branch. Currently, this package is being reworked to support different semantic inference networks but the construction of the point cloud will remain stable (see [generate_point_cloud_semantics_msg](https://github.com/dvdmc/sensors_tools/blob/06f905d2261c00a6ef070166711c471443824c86/sensors_tools_ros/sensors_tools_ros/semantic_ros.py#L438)). The storage use is probably another issue to solve depending on the size of your semantic vectors.
 
