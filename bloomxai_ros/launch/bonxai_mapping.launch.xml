@@ -1,17 +1,14 @@
 <launch>
-	<node pkg="bonxai_ros" exec="bonxai_server_node" name="bonxai_server">
 
-		<!-- fVoxelGrid Resolution -->
-		<param name="resolution" value="0.02" />
+  <arg name="config_file" default="$(find-pkg-share bloomxai_ros)/config/bloomxai_bag.yaml"/>
 
-		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
-		<param name="frame_id" value="map" />
+	<node pkg="bloomxai_ros" exec="bloomxai_server_node" name="bloomxai_server">
 
-		<!-- maximum range to integrate (speedup!) -->
-		<param name="sensor_model.max_range" value="4.0" />
+		<!--Config file -->
+    <param from="$(var config_file)" />
 
 		<!-- data source to integrate (PointCloud2) -->
-		<remap from="cloud_in" to="pointcloud" />
+		<remap from="/cloud_in" to="/camera_sensor/point_cloud" />
 
 		<!-- Publish Height colormap on Resulting VoxelGrid -->
 		<param name="use_height_map" value="true" />

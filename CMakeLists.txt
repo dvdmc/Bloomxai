@@ -71,13 +71,15 @@ if ( ament_cmake_FOUND )
       ${PCL_LIBRARIES}
     )
 
+    rosidl_get_typesupport_target(cpp_typesupport_target 
+    ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+    target_link_libraries(bloomxai_server "${cpp_typesupport_target}")
+
     rclcpp_components_register_node(bloomxai_server
       PLUGIN "bloomxai_server::BloomxaiServer"
       EXECUTABLE bloomxai_server_node
     )
-
-    rosidl_target_interfaces(bloomxai_server
-      ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
     ament_auto_package(
       INSTALL_TO_SHARE

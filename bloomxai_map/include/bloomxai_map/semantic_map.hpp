@@ -27,6 +27,7 @@ inline void ComputeRay(const CoordT& key_origin, const CoordT& key_end, std::vec
 class SemanticMap {
  private:
   int _sem_dim;
+  double _resolution;
 
  public:
   using Vector3D = Eigen::Vector3d;
@@ -137,7 +138,7 @@ class SemanticMap {
 
     // Semantics
     VSemanticProb prob_reg;
-    float alpha_reg = 0.3f;
+    float alpha_reg = 0.7f;
     int32_t clamp_min_sem_log = logods(0.12f);
     int32_t clamp_max_sem_log = logods(0.97f);
 
@@ -213,6 +214,10 @@ class SemanticMap {
       points.emplace_back(p.x, p.y, p.z);
     }
   }
+
+  void getMapLimits(std::vector<float>& min, std::vector<float>& max) const;
+  
+  std::vector<int> getMapXYSize() const;
 
   template <typename PointT>
   void getOccupiedVoxelsAndClass(std::vector<PointT>& points, std::vector<int>& point_labels) {

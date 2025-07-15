@@ -1,34 +1,35 @@
-import os
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.substitutions import Command
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 
-# this is the function launch  system will look for
+
 def generate_launch_description():
+    config_file = LaunchConfiguration('config_file')
 
-    # Current Package Name
-    package = "bloomxai_ros"
+    return LaunchDescription([
+        # Declare launch argument
+        DeclareLaunchArgument(
+            'config_file',
+            default_value=PathJoinSubstitution([
+                FindPackageShare('bloomxai_ros'),
+                'cfg',
+                'bloomxai.yaml'
+            ]),
+            description='Path to the configuration YAML file.'
+        ),
 
-    bloomxai_params = os.path.join(
-        get_package_share_directory(package),
-        'params',
-        'bloomxai_params.yaml'
-        )
-
-    # Bonxai Server Node
-    bloomxai_node = Node(
-        package=package,
-        executable='bloomxai_server_node',
-        name='bloomxai_server_node',
-        emulate_tty=True,
-        parameters=[bloomxai_params],
-        output="screen"
-    )
-
-    # Launch Nodes
-    return LaunchDescription(
-        [
-            bloomxai_node,
-        ]
-    )
+        # Node definition
+        Node(
+            package='bloomxai_ros',
+            executable='bloomxai_server_node',
+            name='bloomxai_server',
+            parameters=[config_file],
+            remappings=[
+                ('cloud_in', 'pointcloud')
+            ],
+            arguments=[],
+            output='screen'
+        ),
+    ])

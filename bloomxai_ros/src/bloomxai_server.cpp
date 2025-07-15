@@ -64,7 +64,7 @@ BloomxaiServer::BloomxaiServer(const rclcpp::NodeOptions& node_options)
     sem_dim_desc.description = "Semantic dimension";
     rcl_interfaces::msg::IntegerRange sem_dim_range;
     sem_dim_range.from_value = 1;
-    sem_dim_range.to_value = 100;
+    sem_dim_range.to_value = 1024;
     sem_dim_desc.integer_range.push_back(sem_dim_range);
     sem_dim_ = declare_parameter("sem_dim", 100, sem_dim_desc);
     initial_sem_val_ = 1.0f / sem_dim_;
